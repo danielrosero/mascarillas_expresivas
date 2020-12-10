@@ -1,24 +1,3 @@
-/* Edge Impulse Arduino examples
-   Copyright (c) 2020 EdgeImpulse Inc.
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy
-   of this software and associated documentation files (the "Software"), to deal
-   in the Software without restriction, including without limitation the rights
-   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-   copies of the Software, and to permit persons to whom the Software is
-   furnished to do so, subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in
-   all copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-   SOFTWARE.
-*/
 
 // If your target is limited in memory remove this macro to save 10K RAM
 #define EIDSP_QUANTIZE_FILTERBANK   0
@@ -30,9 +9,19 @@
 */
 #define EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW 3
 
+// NeoPixels
+// Which pin on the Arduino is connected to the NeoPixels?
+#define PIN 6 // On Trinket or Gemma, suggest changing this to 1
+#define NUMPIXELS 40 // Popular NeoPixel ring size
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+#define DELAYVAL 200 // Time (in milliseconds) to pause between pixels
+
 /* Includes ---------------------------------------------------------------- */
 #include <PDM.h>
 #include <exp_inference.h>
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 
 /** Audio buffers, pointers and selectors */
 typedef struct {
@@ -57,7 +46,13 @@ void setup()
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  Serial.println("Edge Impulse Inferencing Demo");
+  Serial.println("the_human_mask_lab");
+
+  // NeoPixels
+  defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
+  clock_prescale_set(clock_div_1);
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  pixels.clear(); // Set all pixel colors to 'off'
 
   // summary of inferencing settings (from model_metadata.h)
   ei_printf("Inferencing settings:\n");
@@ -98,8 +93,140 @@ void loop()
 
   if (++print_results >= (EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW)) {
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
-      if (result.classification[ix].value > 0.7) {
-        ei_printf("%s\n",result.classification[ix].label);
+      if (result.classification[ix].value > 0.75) {
+        ei_printf("%s\n", result.classification[ix].label);
+        if (result.classification[ix].label == "Hablar") {
+          //(())
+          pixels.setPixelColor(0, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(1, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(2, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(3, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(4, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(5, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(6, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(7, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(8, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(9, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(10, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(11, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(12, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(13, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(14, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(15, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(16, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(17, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(18, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(19, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(20, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(21, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(22, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(23, pixels.Color(0, 150, 0));
+          //()
+          pixels.setPixelColor(24, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(25, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(26, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(27, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(28, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(29, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(30, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(31, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(32, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(33, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(34, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(35, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(36, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(37, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(38, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(39, pixels.Color(0, 150, 0));
+        }
+        if (result.classification[ix].label == "Risa") {
+          //(())
+          pixels.setPixelColor(0, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(1, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(2, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(3, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(4, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(5, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(6, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(7, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(8, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(9, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(10, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(11, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(12, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(13, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(14, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(15, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(16, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(17, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(18, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(19, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(20, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(21, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(22, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(23, pixels.Color(0, 150, 0));
+          //()
+          pixels.setPixelColor(24, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(25, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(26, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(27, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(28, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(29, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(30, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(31, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(32, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(33, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(34, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(35, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(36, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(37, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(38, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(39, pixels.Color(0, 150, 0));
+        }
+        if (result.classification[ix].label == "Silencio") {
+          //(())
+          pixels.setPixelColor(0, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(1, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(2, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(3, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(4, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(5, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(6, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(7, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(8, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(9, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(10, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(11, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(12, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(13, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(14, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(15, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(16, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(17, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(18, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(19, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(20, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(21, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(22, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(23, pixels.Color(0, 150, 0));
+          //()
+          pixels.setPixelColor(24, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(25, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(26, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(27, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(28, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(29, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(30, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(31, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(32, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(33, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(34, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(35, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(36, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(37, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(38, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(39, pixels.Color(0, 150, 0));
+        }
       }
     }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
