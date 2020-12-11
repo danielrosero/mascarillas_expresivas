@@ -100,10 +100,12 @@ void loop()
 
   if (++print_results >= (EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW)) {
     for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
-      if (result.classification[ix].value > 0.65) {
-        ei_printf("%s\n", result.classification[ix].label);
-        if (result.classification[ix].label == "Hablar") {
+      if (result.classification[ix].value > 0.75) {
+        ei_printf("1%s\n", result.classification[ix].label);
+        ei_printf("1%s\n", result.classification[ix].value);
+        if (strcmp(result.classification[ix].label, "Hablar") == 1) {
           //(())
+          ei_printf("%s\n", result.classification[ix].label);
           pixels.setPixelColor(0, pixels.Color(0, 150, 0));
           pixels.setPixelColor(1, pixels.Color(0, 150, 0));
           pixels.setPixelColor(2, pixels.Color(0, 150, 0));
@@ -146,8 +148,9 @@ void loop()
           pixels.setPixelColor(38, pixels.Color(0, 150, 0));
           pixels.setPixelColor(39, pixels.Color(0, 150, 0));
         }
-        if (result.classification[ix].label == "Risa") {
+        if (strcmp(result.classification[ix].label, "Risa") == 1) {
           //(())
+          ei_printf("%s\n", result.classification[ix].label);
           pixels.setPixelColor(0, pixels.Color(0, 0, 0));
           pixels.setPixelColor(1, pixels.Color(0, 0, 0));
           pixels.setPixelColor(2, pixels.Color(0, 0, 0));
@@ -190,8 +193,9 @@ void loop()
           pixels.setPixelColor(38, pixels.Color(0, 150, 0));
           pixels.setPixelColor(39, pixels.Color(0, 150, 0));
         }
-        if (result.classification[ix].label == "Silencio") {
+        if (strcmp(result.classification[ix].label, "Silencio") == 1) {
           //(())
+          ei_printf("%s\n", result.classification[ix].label);
           pixels.setPixelColor(0, pixels.Color(0, 150, 0));
           pixels.setPixelColor(1, pixels.Color(0, 150, 0));
           pixels.setPixelColor(2, pixels.Color(0, 0, 0));
@@ -234,7 +238,51 @@ void loop()
           pixels.setPixelColor(38, pixels.Color(0, 150, 0));
           pixels.setPixelColor(39, pixels.Color(0, 150, 0));
         }
-      }
+      }else{
+          //(())
+          ei_printf("%s\n", result.classification[ix].label);
+          pixels.setPixelColor(0, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(1, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(2, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(3, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(4, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(5, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(6, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(7, pixels.Color(0, 0,0));
+          pixels.setPixelColor(8, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(9, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(10, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(11, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(12, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(13, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(14, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(15, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(16, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(17, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(18, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(19, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(20, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(21, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(22, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(23, pixels.Color(0, 150, 0));
+          //()
+          pixels.setPixelColor(24, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(25, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(26, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(27, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(28, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(29, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(30, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(31, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(32, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(33, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(34, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(35, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(36, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(37, pixels.Color(0, 0, 0));
+          pixels.setPixelColor(38, pixels.Color(0, 150, 0));
+          pixels.setPixelColor(39, pixels.Color(0, 150, 0));
+        }
     }
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
     ei_printf("    anomaly score: %.3f\n", result.anomaly);
