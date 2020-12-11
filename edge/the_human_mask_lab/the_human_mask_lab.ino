@@ -1,18 +1,28 @@
+/* Edge Impulse Arduino examples
+   Copyright (c) 2020 EdgeImpulse Inc.
 
-// If your target is limited in memory remove this macro to save 10K RAM
-#define EIDSP_QUANTIZE_FILTERBANK   0
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
 
-/**
-   Define the number of slices per model window. E.g. a model window of 1000 ms
-   with slices per model window set to 4. Results in a slice size of 250 ms.
-   For more info: https://docs.edgeimpulse.com/docs/continuous-audio-sampling
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
 */
-#define EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW 3
 
-// NeoPixels
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
- #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #endif
 
 // Which pin on the Arduino is connected to the NeoPixels?
@@ -27,10 +37,20 @@
 // strandtest example for more information on possible values.
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
+
+// If your target is limited in memory remove this macro to save 10K RAM
+#define EIDSP_QUANTIZE_FILTERBANK   0
+
+/**
+   Define the number of slices per model window. E.g. a model window of 1000 ms
+   with slices per model window set to 4. Results in a slice size of 250 ms.
+   For more info: https://docs.edgeimpulse.com/docs/continuous-audio-sampling
+*/
+#define EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW 3
+
 /* Includes ---------------------------------------------------------------- */
 #include <PDM.h>
 #include <exp_inference.h>
-
 
 /** Audio buffers, pointers and selectors */
 typedef struct {
@@ -55,11 +75,7 @@ void setup()
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  Serial.println("the_human_mask_lab");
-
-  // NeoPixels
-  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
-  pixels.clear(); // Set all pixel colors to 'off'
+  Serial.println("Human Mask");
 
   // summary of inferencing settings (from model_metadata.h)
   ei_printf("Inferencing settings:\n");
@@ -74,6 +90,8 @@ void setup()
     ei_printf("ERR: Failed to setup audio sampling\r\n");
     return;
   }
+
+  pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
 }
 
 /**
@@ -203,7 +221,7 @@ void loop()
           pixels.setPixelColor(4, pixels.Color(0, 0, 0));
           pixels.setPixelColor(5, pixels.Color(0, 0, 0));
           pixels.setPixelColor(6, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(7, pixels.Color(0, 0,0));
+          pixels.setPixelColor(7, pixels.Color(0, 0, 0));
           pixels.setPixelColor(8, pixels.Color(0, 0, 0));
           pixels.setPixelColor(9, pixels.Color(0, 0, 0));
           pixels.setPixelColor(10, pixels.Color(0, 0, 0));
@@ -238,52 +256,55 @@ void loop()
           pixels.setPixelColor(38, pixels.Color(0, 150, 0));
           pixels.setPixelColor(39, pixels.Color(0, 150, 0));
         }
-      }else{
-          //(())
-          ei_printf("%s\n", result.classification[ix].label);
-          pixels.setPixelColor(0, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(1, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(2, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(3, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(4, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(5, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(6, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(7, pixels.Color(0, 0,0));
-          pixels.setPixelColor(8, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(9, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(10, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(11, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(12, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(13, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(14, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(15, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(16, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(17, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(18, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(19, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(20, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(21, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(22, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(23, pixels.Color(0, 150, 0));
-          //()
-          pixels.setPixelColor(24, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(25, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(26, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(27, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(28, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(29, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(30, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(31, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(32, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(33, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(34, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(35, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(36, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(37, pixels.Color(0, 0, 0));
-          pixels.setPixelColor(38, pixels.Color(0, 150, 0));
-          pixels.setPixelColor(39, pixels.Color(0, 150, 0));
-        }
+      } else {
+        //(())
+        ei_printf("%s\n", result.classification[ix].label);
+        pixels.setPixelColor(0, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(1, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(2, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(3, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(4, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(5, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(6, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(7, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(8, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(9, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(10, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(11, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(12, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(13, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(14, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(15, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(16, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(17, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(18, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(19, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(20, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(21, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(22, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(23, pixels.Color(0, 150, 0));
+        //()
+        pixels.setPixelColor(24, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(25, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(26, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(27, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(28, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(29, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(30, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(31, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(32, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(33, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(34, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(35, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(36, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(37, pixels.Color(0, 0, 0));
+        pixels.setPixelColor(38, pixels.Color(0, 150, 0));
+        pixels.setPixelColor(39, pixels.Color(0, 150, 0));
+      }
     }
+    pixels.show();
+
+
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
     ei_printf("    anomaly score: %.3f\n", result.anomaly);
 #endif
